@@ -72,13 +72,18 @@ exports.products_create_product = (req, res, next) => {
         });
 };
 
+/**
+ * Get product by specific product id.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.products_get_product = (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
-        .select("name price _id productImage")
+        .select("name price _id productImage description")
         .exec()
         .then(doc => {
-            console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
                     product: doc,
